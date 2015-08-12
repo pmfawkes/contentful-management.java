@@ -43,6 +43,7 @@ public class CMAClient {
   final ModuleContentTypes modContentTypes;
   final ModuleEntries modEntries;
   final ModuleSpaces modSpaces;
+  final ModuleAppearances modAppearances;
 
   // PropertiesReader
   final PropertiesReader propertiesReader;
@@ -72,6 +73,7 @@ public class CMAClient {
     this.modContentTypes = new ModuleContentTypes(adapter, callbackExecutor);
     this.modEntries = new ModuleEntries(adapter, callbackExecutor);
     this.modSpaces = new ModuleSpaces(adapter, callbackExecutor);
+    this.modAppearances = new ModuleAppearances(adapter, callbackExecutor);
 
     // PropertiesReader
     this.propertiesReader = new PropertiesReader();
@@ -139,6 +141,7 @@ public class CMAClient {
         requestFacade.addHeader("Authorization", "Bearer " + accessToken);
         requestFacade.addHeader("Content-Type", "application/vnd.contentful.management.v1+json");
         requestFacade.addHeader("User-Agent", getUserAgent(propertiesReader));
+        requestFacade.addHeader("X-Contentful-Skip-Transformation", "false");
       }
     };
   }
@@ -169,6 +172,13 @@ public class CMAClient {
    */
   public ModuleSpaces spaces() {
     return modSpaces;
+  }
+
+  /**
+   * Returns the Appearances module.
+   */
+  public ModuleAppearances appearances() {
+    return modAppearances;
   }
 
   /**
